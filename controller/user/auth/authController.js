@@ -77,8 +77,8 @@ exports.signupController = (req, res, next) => {
             email: email
         }
     })
-        .then(user => {
-            console.log(users);
+        .then(users => {
+            // console.log(users);
             if(users) {
                 return res  
                         .status(200)
@@ -95,7 +95,7 @@ exports.signupController = (req, res, next) => {
                         phone : phone,
                         status: '1'
                     })
-                    console.log(user);
+                    // console.log(user);
                     return user.save();
                 })
                 .then(result => {

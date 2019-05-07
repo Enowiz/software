@@ -2,52 +2,71 @@ const express = require('express');
 
 const router = express.Router();
 
+const auth = require('../middleware/_isAuth');
+
 const contact = require('../controller/contact/contactController');
 
 const authRouter = require('./auth/authRouter');
 
-const authController = require('../controller/user/auth');
+const authController = require('../controller/auth/authController');
+
+const homeController = require('../controller/home/homeController');
+
+const profileController = require('../controller/profile/profileController');
 
 // router.get('/', isAuthenticated, (req, res) => {
 //     res.render('pages/dashboard');
 // });
 
-const auth = require('../middleware/_isAuth');
+router
+  .get('/profile', auth, profileController.getProfile)
+  .put('/edit-mail', auth,  profileController.editMail)
+  .put('/edit-name', auth, profileController.editName)
+  .put('/edit-quote', auth, profileController.editQuote)
 
 router
-  .get('/', )
+  .get('/login', authController.getLogin)
+  .get('/register', authController.getRegister)
+  .post('/login', authController.loginController)
+  .post('/signup', authController.signupController)
+  .get('/logout', authController.logoutController);
 
-router.get('/', (req, res) => {
-    res.render('pages/dashboard');
-  });
 
-  router.get('/icons', auth, (req, res) => {
-    res.render('pages/icons');
-  });
+router
+  .get('/maps',  homeController.getMaps)
+  .get('/', homeController.getHome);
+
+// router.get('/', (req, res) => {
+//     res.render('pages/dashboard');
+//   });
+
+//   router.get('/icons', auth, (req, res) => {
+//     res.render('pages/icons');
+//   });
   
-  router.get('/maps', auth, (req, res) => {
-    res.render('pages/maps');
-  });
+//   router.get('/maps', auth, (req, res) => {
+//     res.render('pages/maps');
+//   });
   
-  router.get('/login', (req, res) => {
-    res.render('pages/login');
-  });
+//   router.get('/login', (req, res) => {
+//     res.render('pages/login');
+//   });
 
-  router.get('/register', (req, res) => {
-    res.render('pages/register');
-  })
+//   router.get('/register', (req, res) => {
+//     res.render('pages/register');
+//   })
 
-  router.get('/tables', auth, (req, res) => {
-    res.render('pages/tables');
-  });
+//   router.get('/tables', auth, (req, res) => {
+//     res.render('pages/tables');
+//   });
 
-  // router.get('/profile', auth, (req, res) => {
+//   // router.get('/profile', auth, (req, res) => {
 
-  //   res.render('pages/profile');
-  // });
+//   //   res.render('pages/profile');
+//   // });
 
-router.get('/contact', contact.getContact);
+// router.get('/contact', contact.getContact);
 
-router.use('/user', authRouter);
+// router.use('/user', authRouter);
 
 module.exports = router;

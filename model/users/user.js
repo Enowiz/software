@@ -35,6 +35,11 @@ const User = conn.define('user' , {
         type : Sequelize.ENUM,
         values : ['admin' , 'user'],
         allowNull : false
+    },
+    quote: {
+        type: Sequelize.STRING,
+        allowNull: true,
+        defaultValue: null
     }
 } , {timestamps : true}, {underscored: true});
 

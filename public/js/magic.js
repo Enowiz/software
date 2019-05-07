@@ -7,14 +7,12 @@ $(document).ready(function() {
         };
         $.ajax({
             type : 'POST',
-            url : '/user/login',
+            url : '/login',
             data: formData,
             dataType: 'json',
             encode: true
         })
-
         .done((data) => {
-            console.log(data);
             if(data.status == 400){
                 $('#email-group').addClass('has-error');
                 $('#email-group').append('<p></p>');
@@ -25,36 +23,163 @@ $(document).ready(function() {
 
         });
         event.preventDefault();
-
     });
-    $('#register-form').submit((event) => {
+
+    $('#change-name').submit((event) => {
         $('.help-block').remove();
         var formData = {
-            'username': $('input[name=name]').val(),
-            'email': $('input[name=email]').val(),
-            'phone': $('input[name=phone]').val(),
-            'password': $('input[name=password').val()
-        };
+            'name': $('input[name=name]').val(),
+        }; 
         $.ajax({
-            type : 'POST',
-            url : '/user/signup',
+            type : 'PUT',
+            url : '/edit-name',
             data: formData,
             dataType: 'json',
             encode: true
         })
-
         .done((data) => {
-            console.log(data);
+            // console.log(data);
             if(data.status == 400){
                 $('#email-group').addClass('has-error');
                 $('#email-group').append('<p></p>');
                 $('#email-group').append('<div style="color: red" class="help-block"><b>' + data.message + '</b></div>');
             } else {
-                window.location = '/login';
+                window.location = '/profile';
             }
-
-        });
-        event.preventDefault();
-
     })
+    event.preventDefault();
+})
+
+$('#change-quote').submit((event) => {
+    $('.help-block').remove();
+    var formData = {
+        'quote': $('input[name=quote]').val(),
+    }; 
+    console.log(formData)
+    $.ajax({
+        type : 'PUT',
+        url : '/edit-quote',
+        data: formData,
+        dataType: 'json',
+        encode: true
+    })
+    .done((data) => {
+        // console.log(data);
+        if(data.status == 400){
+            $('#email-group').addClass('has-error');
+            $('#email-group').append('<p></p>');
+            $('#email-group').append('<div style="color: red" class="help-block"><b>' + data.message + '</b></div>');
+        } else {
+            window.location = '/profile';
+        }
+    })
+    event.preventDefault();
+})
+
+$('#change-mobile').submit((event) => {
+    $('.help-block').remove();
+    var formData = {
+        'mobile': $('input[name=mobile]').val(),
+        'repeat': $('input[name=repeat-mobile]').val()
+    };
+    if(formData.mobile != formData.repeat) {
+        $('#email-group').addClass('has-error');
+        $('#email-group').append('<p></p>');
+        $('#email-group').append('<div style="color: red" class="help-block"><b> Both values should be same</b></div>');
+    }
+
+        else if(isNaN(formData.mobile)) {
+        $('#email-group').addClass('has-error');
+        $('#email-group').append('<p></p>');
+        $('#email-group').append('<div style="color: red" class="help-block"><b>Onlu Numbers allowed allowed </b></div>');
+    } else {
+
+        $.ajax({
+            type : 'PUT',
+            url : '/edit-mail',
+            data: formData,
+            dataType: 'json',
+            encode: true
+        })
+        .done((data) => {
+            // console.log(data);
+            if(data.status == 400){
+                $('#email-group').addClass('has-error');
+                $('#email-group').append('<p></p>');
+                $('#email-group').append('<div style="color: red" class="help-block"><b>' + data.message + '</b></div>');
+            } else {
+                window.location = '/profile';
+            }
+        });
+    }
+    event.preventDefault();
+})
+
+$('#register-form').submit((event) => {
+    $('.help-block').remove();
+    var formData = {
+        'username': $('input[name=name]').val(),
+        'email': $('input[name=email]').val(),
+        'phone': $('input[name=phone]').val(),
+        'password': $('input[name=password').val()
+    };
+    $.ajax({
+        type : 'POST',
+        url : '/signup',
+        data: formData,
+        dataType: 'json',
+        encode: true
+    })
+
+    .done((data) => {
+        console.log(data);
+        if(data.status == 400){
+            $('#email-group').addClass('has-error');
+            $('#email-group').append('<p></p>');
+            $('#email-group').append('<div style="color: red" class="help-block"><b>' + data.message + '</b></div>');
+        } else {
+            window.location = '/login';
+        }
+
+    });
+    event.preventDefault();
+
+})
+
+$('#show-phone').on('click', function () {
+    $('.centr-phone').show();
+    $(this).hide();
+    event.preventDefault();
+})
+
+$('#cloose-phone').on('click', function () {
+    $('.centr-phone').hide();
+    $('#show-phone').show();
+    event.preventDefault();
+})
+
+$('#show-name').on('click', function () {
+    $('.centr-name').show();
+    $(this).hide();
+    event.preventDefault();
+})
+
+$('#cloose-name').on('click', function () {
+    $('.centr-name').hide();
+    $('#show-name').show();
+    event.preventDefault();
+})
+
+$('#show-quote').on('click', function () {
+    $('.centr-quote').show();
+    $(this).hide();
+    event.preventDefault();
+})
+
+$('#cloose-quote').on('click', function () {
+    $('.centr-quote').hide();
+    $('#show-quote').show();
+    event.preventDefault();
+})
+
 })

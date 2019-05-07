@@ -1,10 +1,28 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-const User = require('../../../model/users/user');
-const key = require('../../../util/util');
+const User = require('../../model/users/user');
+const key = require('../../util/util');
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op
+
+exports.getLogin = (req, res, next) => {
+    if(req.session.isLoggedIn) {
+        return res.render('pages/dashboard');
+    } else {
+        res.render('pages/login');
+    }
+    
+}
+
+exports.getRegister = (req, res, next) => {
+    if(req.session.isLoggedIn) {
+        return res.render('pages/dashboard');
+    } else {
+        res.render('pages/register');
+    }
+    
+}
 
 exports.loginController = (req, res, next) => {
 
@@ -37,7 +55,9 @@ exports.loginController = (req, res, next) => {
                         }else{
 
                             req.session.isLoggedIn = true;
+                            req.session.user_id = user[0].dataValues.user_id;
                             req.session.cookie.maxAge = 10000 * 60 * 60;
+                            console.log("Logged in");
 
                         return res
                             .status(200)
@@ -116,6 +136,6 @@ exports.logoutController = (req, res, next) => {
     req.session.destroy(err => {
         if(err)
             console.log(err);
-        res.redirect('/');
     })
+    return res.redirect('/');
 }

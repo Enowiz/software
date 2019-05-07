@@ -1,17 +1,19 @@
-const Express = require('express');
+// const Express = require('express');
 
-// const {check, body} = require('express-validator/check');
+// // const {check, body} = require('express-validator/check');
 
-const router = Express.Router();
+// const router = Express.Router();
 
-const auth = require('../../controller/user/auth/authController');
+// const auth = require('../../controller/user/auth/authController');
 
-// const is_auth = require('../../../middleware/auth/_isAuth');
+// // const is_auth = require('../../../middleware/auth/_isAuth');
 
-router.post('/login', auth.loginController);
+// router.post('/login', auth.loginController);
 
-router.post( '/signup', auth.signupController);
+// router.post( '/signup', auth.signupController);
 
-router.get('/logout', auth.logoutController);
+// router.get('/logout', auth.logoutController);
 
-module.exports = router;
+// router.get('/profile')
+
+// module.exports = router;

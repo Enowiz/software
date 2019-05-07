@@ -1,0 +1,88 @@
+<body class="bg-default">
+    <% include ../partials/sidebar %>
+  <div class="main-content">
+      
+    <!-- Navbar -->
+    <% include ../partials/navbar %>
+    <!-- Header -->
+    <% include ../partials/header %>
+    <!-- Page content -->
+
+    <div class="container mt--8 pb-5">
+        <br><br>
+        <% if(!admin) { %> 
+            <form id="query-contact" action="#">
+                    <div class="row justify-content-center">
+                      <div class="col-lg-7 col-md-8">
+                        <div class="card bg-secondary shadow border-0">
+                          <div class="card-header bg-transparent pb-5">
+                            <div class="card-body px-lg-5 py-lg-5">
+                              <div class="text-center  mb-4">
+                                  <large><b>Have a query write to us</b></large>
+                              </div>
+                            </div>
+                            <div class="col-md-12 text-center">
+                              <label class="form-control-label" for="input-name">Enter your Email</label>
+                              <input type="email" id="query-email" class="form-control form-control-alternative" name="email" placeholder="EMail" value="<%= locals.userInfo && locals.userInfo.name %>">
+                            </div>
+                            <br>
+                            <div class="col-md-12 text-center">
+                              <label class="form-control-label" for="input-name">Give Your Query a Title</label>
+                              <input type="text" id="query-email" class="form-control form-control-alternative" name="title" placeholder="Title" value="<%= locals.userInfo && locals.userInfo.name %>">
+                            </div>
+                            <br>
+                            <div class="col-md-12 text-center">
+                              <label class="form-control-label" for="input-name">Enter your Query</label>
+                              <textarea name="query"  id="query-email" maxlength="200" class="form-control form-control-alternative" placeholder="Description" style="height: 175px"></textarea>
+                              <!-- <input type="text" id="query-text" class="form-control form-control-alternative" name="query" placeholder="Enter You Query here" value="<%= locals.userInfo && locals.userInfo.name %>"> -->
+                            </div>
+                            <br>
+                            <div id="email-group" class="form-group"></div>
+                            <div class="col-lg-12 text-center">
+                              <input type="submit"  class="btn btn-success mt-4 mb-4" value="Submit">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+        
+            <% } else {%>
+                <br><br>
+                <div class="row">     
+                      <div class="col-lg-6 col-md-12 boxs">
+                        <div class="card bg-secondary shadow border-0">
+                          <div class="card-header bg-transparent pb-5">
+                            <div class="card-body px-lg-5 py-lg-5">
+                              <div class="text-center  mb-4">
+                                  <large><b>View Un Read Messages</b></large>
+                              </div>
+                            </div>
+                        </div>
+                        </div>
+                </div>
+                <br>
+                <div class="col-lg-6 col-md-12 boxs">
+                        <div class="card bg-secondary shadow border-0">
+                          <div class="card-header bg-transparent pb-5">
+                            <div class="card-body px-lg-5 py-lg-5">
+                              <div class="text-center  mb-4">
+                                  <large><b>View Un Read Messages</b></large>
+                              </div>
+                            </div>
+                        </div>
+                        </div>
+                </div>
+                </div>
+            <% } %>
+        
+    </div>
+
+  </div>
+
+  <% include ../partials/auth/footer %>
+
+  <!-- Include scripts -->
+  <% include ../partials/scripts %>
+
+</body>

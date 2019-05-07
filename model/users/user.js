@@ -34,7 +34,8 @@ const User = conn.define('user' , {
     role : {
         type : Sequelize.ENUM,
         values : ['admin' , 'user'],
-        allowNull : false
+        allowNull : false,
+        defaultValue: 'user'
     },
     quote: {
         type: Sequelize.STRING,

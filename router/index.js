@@ -14,6 +14,8 @@ const homeController = require('../controller/home/homeController');
 
 const profileController = require('../controller/profile/profileController');
 
+const contactController = require('../controller/contact/contactController');
+
 // router.get('/', isAuthenticated, (req, res) => {
 //     res.render('pages/dashboard');
 // });
@@ -23,6 +25,10 @@ router
   .put('/edit-mail', auth,  profileController.editMail)
   .put('/edit-name', auth, profileController.editName)
   .put('/edit-quote', auth, profileController.editQuote)
+
+router
+  .get('/contact', auth, contactController.getContact)
+  .post('/add-query', auth, contactController.addQuery)
 
 router
   .get('/login', authController.getLogin)

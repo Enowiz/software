@@ -55,7 +55,6 @@ $('#change-quote').submit((event) => {
     var formData = {
         'quote': $('input[name=quote]').val(),
     }; 
-    console.log(formData)
     $.ajax({
         type : 'PUT',
         url : '/edit-quote',
@@ -75,6 +74,40 @@ $('#change-quote').submit((event) => {
     })
     event.preventDefault();
 })
+
+$('#query-contact').submit((event) => {
+    $('.help-block').remove();
+    var formData = {
+        'email': $('input[name=email]').val(),
+        'title': $('input[name=title]').val(),
+        'query': $('textarea[name=query]').val()
+    };
+    if(formData.email.length == 0 || formData.title.lenght == 0 || formData.query.lenght == 0) {
+        $('#email-group').addClass('has-error');
+        $('#email-group').append('<p></p>');
+        $('#email-group').append('<div style="color: red" class="help-block"><b>Node of the above fileds can be blank</b></div>');
+    } else {
+        console.log("Hello world");
+        $.ajax({
+            type : 'POST',
+            url : '/add-query',
+            data: formData,
+            dataType: 'json',
+            encode: true
+        })
+        .done((data) => {
+            if(data.status == 400){
+                $('#email-group').addClass('has-error');
+                $('#email-group').append('<p></p>');
+                $('#email-group').append('<div style="color: red" class="help-block"><b>' + data.message + '</b></div>');
+            } else {
+                window.location = '/';
+            }
+        });
+    }
+    event.preventDefault();
+    
+});
 
 $('#change-mobile').submit((event) => {
     $('.help-block').remove();

@@ -53,12 +53,14 @@ exports.loginController = (req, res, next) => {
                             return res.status(400).json({status: 400 , message: "Profile Not Activated!"});
 
                         }else{
-
                             req.session.isLoggedIn = true;
                             req.session.user_id = user[0].dataValues.user_id;
                             req.session.cookie.maxAge = 10000 * 60 * 60;
-                            console.log("Logged in");
-
+                            if(user[0].dataValues.role == 'admin') {
+                                req.session.admin = true;
+                            } else {
+                                req.session.admin = false;
+                            }
                         return res
                             .status(200)
                             .json({

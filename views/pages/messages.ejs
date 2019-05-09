@@ -1,0 +1,108 @@
+<body class="bg-default">
+        <% include ../partials/sidebar %>
+      <div class="main-content">
+          
+        <!-- Navbar -->
+        <% include ../partials/navbar %>
+        <!-- Header -->
+        <% include ../partials/header %>
+        <!-- Page content -->
+        <br><br>
+        <% if(unread) { %> 
+        <% if(datas.length > 0) { %>
+            <div class="container mt--8 pb-5">
+            <div class="row" class="margin:40;">
+            <% datas.forEach((data) => { %>
+                <!-- <div class="container mt--8 pb-5"> -->
+                        
+                        <div class="col-sm-12 col-md-6" style="margin:40;">  
+                            <div class="card bg-secondary shadow border-0" style="margin:40">
+                                <div class="card-header bg-transparent pb-5" style="margin:40">
+                                    <div class="card-body px-lg-5 py-lg-5" style="margin:40">
+                                       <h1 class="text-center"><%= data.title %></h1>
+                                       <div class="h3 mt-4">
+                                            <i class="ni business_briefcase-24 mr-2"></i>Email: <%= data.email %>
+                                        </div>
+                                        <div class="h5 mt-4">
+                                                <p class="ni business_briefcase-24 mr-2"></p> <%= data.body %>
+                                        </div>
+                                        <!-- <button href=""  class="btn btn-success mt-4 mb-4">Mark as read</button> -->
+                                        <div class="col-md-12 text-center">
+                                        <a href="/read/<%= data.query_id %>" class="btn btn-success mt-4 mb-4">Mark as read</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br><br>
+                        </div>
+                    <!-- </div> -->
+            <% })%>
+            </div>
+        </div>
+            <% } else {%>
+                <div class="container mt--8 pb-5">
+                        <div class="col-sm-12 text-center">
+                            <div class="card bg-secondary shadow border-0" style="margin-top:10;">
+                                <div class="card-header bg-transparent pb-5">
+                                    <div class="card-body text-center px-lg-5 py-lg-5">
+                                       <h1>Nothing to show</h1>
+                                    </div>
+                                    <div class="col-md-12 text-center">
+                                            <a href="/all-messages" class="btn btn-success mt-4 mb-4">View All Messages</a>
+                                    </div>
+                                </div>  
+                            </div>
+                        </div>
+                </div>
+            <% } %>
+        <% } else {%>
+            <% if(datas.length > 0) { %>
+                <div class="container mt--8 pb-5">
+                <div class="row" class="margin:40;">
+            <% datas.forEach((data) => { %>
+                        <div class="col-sm-12 col-md-6 text-center">
+                            <div class="card bg-secondary shadow border-0" style="margin-top:10;">
+                                <div class="card-header bg-transparent pb-5">
+                                    <div class="card-body px-lg-5 py-lg-5">
+                                       <h1><%= data.title %></h1>
+                                       <div class="h3 mt-4">
+                                            <i class="ni business_briefcase-24 mr-2"></i>Email: <%= data.email %>
+                                        </div>
+                                        <div class="h5 mt-4">
+                                                <p class="ni business_briefcase-24 mr-2"></p> <%= data.body %>
+                                        </div>
+                                        <!-- <button href=""  class="btn btn-success mt-4 mb-4">Mark as read</button> -->
+                                        <a href="/delete/<%= data.query_id %>" class="btn btn-danger mt-4 mb-4">Delete Message</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <% }) %>
+                </div>
+            </div>
+                <% } else {%>
+                    <div class="container mt--8 pb-5">
+                            <div class="col-sm-12 text-center">
+                                <div class="card bg-secondary shadow border-0" style="margin-top:10;">
+                                    <div class="card-header bg-transparent pb-5">
+                                        <div class="card-body text-center px-lg-5 py-lg-5">
+                                           <h1>Nothing to show</h1>
+                                        </div>
+                                        <div class="col-md-12 text-center">
+                                                <a href="/" class="btn btn-success mt-4 mb-4">Go To Home Page</a>
+                                        </div>
+                                    </div>  
+                                </div>
+                            </div>
+                    </div>
+                <% } %>
+        <% } %>
+
+         <br>
+    <% include ../partials/auth/footer %>
+  
+    <!-- Include scripts -->
+    <% include ../partials/scripts %>
+  
+  </body>
+      

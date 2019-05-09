@@ -29,6 +29,10 @@ router
 router
   .get('/contact', auth, contactController.getContact)
   .post('/add-query', auth, contactController.addQuery)
+  .get('/all-messages', auth, contactController.getAllMessage)
+  .get('/unread-messages', auth, contactController.getUnread)
+  .get('/read/:id', auth, contactController.markRead)
+  .get('/delete/:id', auth, contactController.deleteOne);
 
 router
   .get('/login', authController.getLogin)

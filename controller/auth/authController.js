@@ -86,22 +86,19 @@ exports.loginController = (req, res, next) => {
 }
 
 exports.signupController = (req, res, next) => {
-    console.log(req.body);
     const email = req.body.email;
     const pwd = req.body.password;
     const name = req.body.username;
-    const role = "admin";
+    const role = "user";
     const phone = req.body.phone;
-    
-    
+    console.log(req.body);
     User.findOne({where : 
         {
             email: email
         }
     })
         .then(users => {
-            // console.log(users);
-            if(users) {
+            if(users != null) {
                 return res  
                         .status(200)
                         .json({status: 400 , message: "User already registered!"});
@@ -109,19 +106,19 @@ exports.signupController = (req, res, next) => {
             return bcrypt
                 .hash(pwd, 12)
                 .then(hashedPwd => {
-                    const user = new User({
-                        email: email,
-                        password: hashedPwd,
-                        name: name,
-                        role : role,
-                        phone : phone,
-                        status: '1'
-                    })
-                    // console.log(user);
-                    return user.save();
+                    return User.create(
+                        {
+                            email: email,
+                            password: hashedPwd,
+                            name: name,
+                            role : role,
+                            phone : phone,
+                            status: '1',
+                            quote: "None",
+                        }
+                    )
                 })
-                .then(result => {
-                    console.log(result);
+                .then((result) => {
                     return res
                             .status(200)
                             .json({"status": 200 , "message": "User Signed successfully!"});
